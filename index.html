@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sohail Syed - Data Science Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .profile-section {
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .location {
+            color: #888;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0ff);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Skill Progress Bars */
+        .skill-progress {
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+            width: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff, #e8f0ff);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-date {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        /* Projects Section */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0ff);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.05), transparent);
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%);
+        }
+
+        .project-card:hover::before {
+            transform: translateX(100%) translateY(100%);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+
+        .project-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-description {
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .project-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-link {
+            padding: 8px 16px;
+            background: transparent;
+            color: #667eea;
+            text-decoration: none;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .project-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Achievement Cards */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: scale(1.05);
+        }
+
+        .achievement-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .achievement-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Blog/Insights */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: #888;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Interactive Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Case Study */
+        .case-study {
+            background: linear-gradient(135deg, #f8f9ff, #e8f0ff);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .case-study-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .case-step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .projects-grid, .achievement-grid, .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-link {
+                font-size: 0.9em;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Animation for page load */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        /* Scroll to section smooth */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav fade-in">
+            <div class="nav-links">
+                <a href="#home" class="nav-link">🏠 Home</a>
+                <a href="#about" class="nav-link">👨‍💻 About</a>
+                <a href="#skills" class="nav-link">🛠️ Skills</a>
+                <a href="#projects" class="nav-link">📊 Projects</a>
+                <a href="#insights" class="nav-link">💡 Insights</a>
+                <a href="#journey" class="nav-link">🎯 Journey</a>
+                <a href="#achievements" class="nav-link">🏆 Achievements</a>
+            </div>
+        </nav>
+
+        <!-- Header Section -->
+        <header id="home" class="header fade-in">
+            <div class="profile-section">
+                <div class="profile-image">SS</div>
+                <h1 class="name">Sohail Syed</h1>
+                <p class="title">Data Science Student | Python, SQL, R, Power BI, Excel</p>
+                <p class="location">📍 Mumbai, Maharashtra, India</p>
+                <div class="contact-links">
+                    <a href="mailto:sohails2908@gmail.com" class="contact-btn">📧 Email</a>
+                    <a href="https://www.linkedin.com/in/sohail-syed-187235256" target="_blank" class="contact-btn">💼 LinkedIn</a>
+                    <a href="#" class="contact-btn">📄 Resume</a>
+                    <a href="#" class="contact-btn">💻 GitHub</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- About Section -->
+            <div id="about" class="card fade-in delay-1">
+                <h2 class="card-title">
+                    <div class="card-icon">👨‍💻</div>
+                    About Me
+                </h2>
+                <p>Passionate Data Science student pursuing BSc. in Data Science & Business Analytics at SDBI. I'm driven by the power of data to solve real-world problems and create meaningful impact. Currently seeking opportunities to apply my analytical skills and technical expertise in the data science industry.</p>
+                
+                <div style="margin-top: 20px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Focus Areas:</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Business Analytics</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">Statistical Modeling</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="card fade-in delay-2">
+                <h2 class="card-title">
+                    <div class="card-icon">🎓</div>
+                    Education
+                </h2>
+                <div>
+                    <h3 style="color: #667eea; font-weight: 600;">BSc. Data Science & Business Analytics</h3>
+                    <p style="color: #666; margin: 5px 0;">SDBI - School Of Data Science & Business Intelligence</p>
+                    <p style="color: #888; font-size: 0.9em;">August 2022 - March 2025</p>
+                    
+                    <div style="margin-top: 15px;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Key Coursework:</h4>
+                        <ul style="color: #666; padding-left: 20px;">
+                            <li>Statistical Analysis & Modeling</li>
+                            <li>Machine Learning Algorithms</li>
+                            <li>Database Management Systems</li>
+                            <li>Business Intelligence & Analytics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Progression Section -->
+        <div id="skills" class="card full-width fade-in delay-3">
+            <h2 class="card-title">
+                <div class="card-icon">📈</div>
+                Skills Progression & Proficiency
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px;">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Technical Skills</h3>
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>SQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="80"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>R Programming</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Power BI</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="90"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Excel Advanced</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="95"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Analytical Skills</h3>
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Statistical Analysis</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="80"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Machine Learning</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="70"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Data Visualization</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Business Intelligence</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-progress">
+                        <div class="skill-name">
+                            <span>Data Mining</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="65"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Data Visualization -->
+        <div class="card full-width fade-in delay-4">
+            <h2 class="card-title">
+                <div class="card-icon">📊</div>
+                Interactive Data Visualization Demo
+            </h2>
+            <p style="margin-bottom: 20px; color: #666;">Sample visualization showing my proficiency in creating interactive charts and dashboards.</p>
+            
+            <div class="chart-container">
+                <canvas id="skillsChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Projects Section with Case Studies -->
+        <div id="projects" class="card full-width fade-in delay-4">
+            <h2 class="card-title">
+                <div class="card-icon">🚀</div>
+                Featured Projects & Case Studies
+            </h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Customer Analytics Dashboard</div>
+                    <p class="project-description">Comprehensive Power BI dashboard analyzing customer behavior patterns, retention rates, and revenue trends. Implemented advanced DAX calculations and interactive visualizations for executive reporting.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Excel</span>
+                        <span class="tech-tag">DAX</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">📊 View Demo</a>
+                        <a href="#" class="project-link">📋 Case Study</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Sales Forecasting Model</div>
+                    <p class="project-description">Machine learning model using Python to predict sales trends with 92% accuracy. Implemented time series analysis and multiple regression techniques for business planning.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Matplotlib</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">💻 GitHub</a>
+                        <a href="#" class="project-link">📈 Results</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">E-commerce Data Pipeline</div>
+                    <p class="project-description">End-to-end data pipeline for processing e-commerce transactions, customer data, and inventory management. Automated ETL processes and real-time monitoring.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">ETL</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">🔗 Architecture</a>
+                        <a href="#" class="project-link">📊 Metrics</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">Market Basket Analysis</div>
+                    <p class="project-description">Association rule mining project to identify product purchase patterns and recommend optimal product placements. Increased cross-selling opportunities by 23%.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">R</span>
+                        <span class="tech-tag">Apriori Algorithm</span>
+                        <span class="tech-tag">Data Mining</span>
+                        <span class="tech-tag">Visualization</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">🛒 Analysis</a>
+                        <a href="#" class="project-link">📊 Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study Example -->
+            <div class="case-study">
+                <h3 style="color: #667eea; margin-bottom: 15px;">📋 Case Study: Customer Churn Prediction</h3>
+                <p style="margin-bottom: 20px; color: #666;">A comprehensive analysis of customer retention patterns for a telecommunications company, resulting in 15% reduction in churn rate.</p>
+                
+                <div class="case-study-steps">
+                    <div class="case-step">
+                        <div class="step-number">1</div>
+                        <h4>Problem Definition</h4>
+                        <p>Identify customers likely to churn and understand key factors</p>
+                    </div>
+                    <div class="case-step">
+                        <div class="step-number">2</div>
+                        <h4>Data Collection</h4>
+                        <p>Gathered customer data, usage patterns, and support interactions</p>
+                    </div>
+                    <div class="case-step">
+                        <div class="step-number">3</div>
+                        <h4>Analysis & Modeling</h4>
+                        <p>Applied machine learning algorithms and statistical analysis</p>
+                    </div>
+                    <div class="case-step">
+                        <div class="step-number">4</div>
+                        <h4>Results & Impact</h4>
+                        <p>Delivered actionable insights and retention strategies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Journey Timeline -->
+        <div id="journey" class="card full-width fade-in delay-5">
+            <h2 class="card-title">
+                <div class="card-icon">🎯</div>
+                Learning Journey & Milestones
+            </h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">August 2022</div>
+                    <div class="timeline-title">Started BSc Data Science Program</div>
+                    <p>Began my formal journey in data science at SDBI, focusing on foundational mathematics and statistics.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2023</div>
+                    <div class="timeline-title">First Python Project</div>
+                    <p>Completed my first data analysis project using Python, analyzing student performance datasets.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2023</div>
+                    <div class="timeline-title">SQL Mastery</div>
+                    <p>Achieved proficiency in complex SQL queries, database design, and optimization techniques.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2023</div>
+                    <div class="timeline-title">Power BI Certification Prep</div>
+                    <p>Completed advanced Power BI training and created multiple business intelligence dashboards.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2024</div>
+                    <div class="timeline-title">British Airways Simulation</div>
+                    <p>Successfully completed the British Airways Data Science Job Simulation, gaining practical industry experience.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Current - 2025</div>
+                    <div class="timeline-title">Advanced ML & Industry Applications</div>
+                    <p>Focusing on machine learning algorithms, deep learning, and preparing for industry transition.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements & Metrics -->
+        <div id="achievements" class="card full-width fade-in delay-6">
+            <h2 class="card-title">
+                <div class="card-icon">🏆</div>
+                Achievements & Impact Metrics
+            </h2>
+            
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <div class="achievement-number">15+</div>
+                    <div class="achievement-label">Projects Completed</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">92%</div>
+                    <div class="achievement-label">Best Model Accuracy</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">5</div>
+                    <div class="achievement-label">Programming Languages</div>
+                </div>                <div class="achievement-card">
+                    <div class="achievement-number">2</div>
+                    <div class="achievement-label">Industry Certifications</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">500+</div>
+                    <div class="achievement-label">GitHub Contributions</div>
+                </div>
+            </div>
+
+            <!-- Certifications Detail -->
+            <div style="margin-top: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 20px;">🎖️ Certifications & Training</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">British Airways - Data Science Job Simulation</div>
+                        <p>Comprehensive simulation covering web scraping, data analysis, predictive modeling, and business presentation skills.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Business Analysis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Advanced Excel Analytics</div>
+                        <p>Specialized training in advanced Excel functions, pivot tables, macro programming, and dashboard creation.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Excel VBA</span>
+                            <span class="tech-tag">Advanced Formulas</span>
+                            <span class="tech-tag">Data Modeling</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Statistical Analysis with R</div>
+                        <p>Comprehensive course covering statistical modeling, hypothesis testing, and advanced data visualization techniques.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">R Programming</span>
+                            <span class="tech-tag">Statistics</span>
+                            <span class="tech-tag">ggplot2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog/Insights Section -->
+        <div id="insights" class="card full-width fade-in delay-6">
+            <h2 class="card-title">
+                <div class="card-icon">💡</div>
+                Latest Insights & Blog Posts
+            </h2>
+            
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">📊</div>
+                    <div class="blog-content">
+                        <div class="blog-title">The Future of Business Intelligence in 2025</div>
+                        <div class="blog-date">December 2024</div>
+                        <div class="blog-excerpt">Exploring emerging trends in BI tools, AI integration, and self-service analytics that are reshaping how businesses make data-driven decisions.</div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">🤖</div>
+                    <div class="blog-content">
+                        <div class="blog-title">Machine Learning in Retail: A Beginner's Guide</div>
+                        <div class="blog-date">November 2024</div>
+                        <div class="blog-excerpt">Step-by-step breakdown of implementing ML algorithms for inventory management, customer segmentation, and sales forecasting.</div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">📈</div>
+                    <div class="blog-content">
+                        <div class="blog-title">Data Visualization Best Practices</div>
+                        <div class="blog-date">October 2024</div>
+                        <div class="blog-excerpt">Essential principles for creating compelling visualizations that tell meaningful stories and drive business impact.</div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">🔍</div>
+                    <div class="blog-content">
+                        <div class="blog-title">SQL Optimization Techniques</div>
+                        <div class="blog-date">September 2024</div>
+                        <div class="blog-excerpt">Advanced SQL strategies for improving query performance, database optimization, and handling large datasets efficiently.</div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">🎯</div>
+                    <div class="blog-content">
+                        <div class="blog-title">My Data Science Learning Journey</div>
+                        <div class="blog-date">August 2024</div>
+                        <div class="blog-excerpt">Personal reflections on transitioning from student to professional, key learning resources, and advice for aspiring data scientists.</div>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">💻</div>
+                    <div class="blog-content">
+                        <div class="blog-title">Building Your First ETL Pipeline</div>
+                        <div class="blog-date">July 2024</div>
+                        <div class="blog-excerpt">Practical tutorial on creating automated data pipelines using Python, covering extraction, transformation, and loading processes.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Deep Dive Section -->
+        <div class="card full-width fade-in delay-6">
+            <h2 class="card-title">
+                <div class="card-icon">🔬</div>
+                Technical Deep Dives & Code Repositories
+            </h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Custom Machine Learning Library</div>
+                    <p>Built from-scratch implementations of popular ML algorithms including linear regression, decision trees, and k-means clustering for educational purposes.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Algorithm Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">💻 Code</a>
+                        <a href="#" class="project-link">📖 Documentation</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Real-time Dashboard Framework</div>
+                    <p>Developed a flexible framework for creating real-time analytics dashboards with live data streaming and interactive visualizations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python Flask</span>
+                        <span class="tech-tag">WebSockets</span>
+                        <span class="tech-tag">Chart.js</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">🚀 Demo</a>
+                        <a href="#" class="project-link">⚙️ Setup Guide</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">Data Quality Assessment Tool</div>
+                    <p>Comprehensive toolkit for automated data quality assessment, anomaly detection, and data profiling with detailed reporting capabilities.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Data Validation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">🔍 Features</a>
+                        <a href="#" class="project-link">📊 Sample Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Involvement -->
+        <div class="card full-width fade-in delay-6">
+            <h2 class="card-title">
+                <div class="card-icon">🌟</div>
+                Community Involvement & Learning
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div class="project-card">
+                    <div class="project-title">📚 Open Source Contributions</div>
+                    <p>Active contributor to data science libraries and educational resources on GitHub. Contributed bug fixes and documentation improvements.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">🎤 Mumbai Data Science Meetup</div>
+                    <p>Regular attendee and volunteer at local data science meetups. Presented on "Getting Started with Power BI" to 50+ attendees.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">👥 Peer Mentoring</div>
+                    <p>Mentor junior students in data science fundamentals, Python programming, and career guidance. Helped 10+ students with project development.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">🏆 Hackathon Participation</div>
+                    <p>Participated in 3 data science hackathons, including Mumbai Analytics Challenge 2024. Achieved top 10 finish in 2 competitions.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">📖 Continuous Learning</div>
+                    <p>Currently pursuing advanced courses in Deep Learning, Cloud Computing (AWS), and MLOps to stay current with industry trends.</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">💬 Online Communities</div>
+                    <p>Active member of Stack Overflow, Kaggle, and Reddit data science communities. Contribute solutions and participate in discussions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Industry Focus Areas -->
+        <div class="card full-width fade-in delay-6">
+            <h2 class="card-title">
+                <div class="card-icon">🎯</div>
+                Industry Focus & Domain Expertise
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🏦 Financial Services</h3>
+                    <p style="margin-bottom: 15px;">Risk assessment, fraud detection, algorithmic trading analysis, and regulatory compliance reporting.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Risk Modeling</span>
+                        <span class="tech-tag">Fraud Detection</span>
+                        <span class="tech-tag">Compliance</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🛒 E-commerce & Retail</h3>
+                    <p style="margin-bottom: 15px;">Customer segmentation, recommendation systems, inventory optimization, and sales forecasting.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Recommendation Systems</span>
+                        <span class="tech-tag">Customer Analytics</span>
+                        <span class="tech-tag">Inventory Management</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🏥 Healthcare Analytics</h3>
+                    <p style="margin-bottom: 15px;">Patient outcome prediction, resource optimization, and medical data analysis for improved healthcare delivery.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Predictive Modeling</span>
+                        <span class="tech-tag">Healthcare KPIs</span>
+                        <span class="tech-tag">Data Privacy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 40px; color: rgba(255,255,255,0.8); margin-top: 40px;">
+            <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; margin-bottom: 20px;">
+                <h3 style="color: white; margin-bottom: 15px;">Ready to Drive Impact in Data Science</h3>
+                <p style="margin-bottom: 20px;">I'm passionate about leveraging data to solve real-world problems and drive business value. Let's connect and explore opportunities to collaborate!</p>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="mailto:sohails2908@gmail.com" class="contact-btn">📧 Get In Touch</a>
+                    <a href="https://www.linkedin.com/in/sohail-syed-187235256" target="_blank" class="contact-btn">💼 Connect on LinkedIn</a>
+                    <a href="#" class="contact-btn">📄 Download Resume</a>
+                </div>
+            </div>
+            <p>© 2025 Sohail Syed. Built with passion for data science and continuous learning.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize progress bars animation
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        }
+
+        // Initialize Chart.js visualization
+        function initializeChart() {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Python', 'SQL', 'R', 'Power BI', 'Excel', 'Statistics', 'ML', 'Visualization'],
+                    datasets: [{
+                        label: 'Current Skill Level',
+                        data: [85, 80, 75, 90, 95, 80, 70, 85],
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(102, 126, 234, 1)'
+                    }, {
+                        label: 'Target by Graduation',
+                        data: [95, 90, 85, 95, 95, 90, 85, 90],
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        borderColor: 'rgba(118, 75, 162, 0.8)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointBackgroundColor: 'rgba(118, 75, 162, 0.8)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(118, 75, 162, 0.8)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Skills Assessment & Growth Targets',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    
+                    // Trigger progress bar animation when skills section is visible
+                    if (entry.target.id === 'skills') {
+                        animateProgressBars();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add hover effects for skill items
+        document.querySelectorAll('.skill-item').forEach(skill => {
+            skill.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotate(2deg)';
+            });
+            
+            skill.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Add click animation for contact buttons
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+                ripple.style.width = ripple.style.height = '10px';
+                
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            .contact-btn {
+                position: relative;
+                overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure Chart.js is loaded
+            setTimeout(initializeChart, 100);
+        });
+
+        // Add floating animation to achievement cards
+        document.querySelectorAll('.achievement-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.animation = 'float 3s ease-in-out infinite';
+        });
+    </script>
+</body>
+</html>
